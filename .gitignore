@@ -120,3 +120,4 @@ dmypy.json
 
 # Own files
 .env/
+users/pictures/
