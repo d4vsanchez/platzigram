@@ -30,7 +30,7 @@ def update_profile_view(request):
             profile.picture = data["picture"]
             profile.save()
 
-            return redirect("update_profile")
+            return redirect("users:update_profile")
     else:
         form = ProfileForm()
 
@@ -49,7 +49,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect("feed")
+            return redirect("posts:feed")
         else:
             return render(
                 request, "users/login.html", {"error": "Wrong username or password"}
