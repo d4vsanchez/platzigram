@@ -1,15 +1,14 @@
 """Posts views"""
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, render
 # Django
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import CreateView, DetailView, ListView
 
 # Forms
 from posts.forms import PostForm
-
 # Models
 from posts.models import Post
 

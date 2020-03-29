@@ -1,23 +1,21 @@
 """User views"""
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.db.utils import IntegrityError
+from django.shortcuts import redirect, render, reverse
 # Django
 from django.urls import reverse_lazy
-from django.db.utils import IntegrityError
-from django.contrib.auth.models import User
-from django.contrib.auth import views as auth_views
-from django.shortcuts import render, redirect, reverse
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
 from django.views.generic import DetailView, FormView, UpdateView
 
 # Models
 from posts.models import Post
-from users.models import Profile
-from django.contrib.auth.models import User
-
 # Forms
 from users.forms import SignUpForm
+from users.models import Profile
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
