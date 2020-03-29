@@ -73,8 +73,7 @@ class LoginView(auth_views.LoginView):
     template_name = "users/login.html"
 
 
-@login_required
-def logout_view(request):
-    """Logout a user"""
-    logout(request)
-    return redirect("users:login")
+class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
+    """Logout view."""
+
+    template_name = "users/logged_out.html"
