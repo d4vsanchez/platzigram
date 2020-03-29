@@ -2,7 +2,8 @@
 
 # Django
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 
 
 def login_view(request):
@@ -19,3 +20,10 @@ def login_view(request):
                 request, "users/login.html", {"error": "Wrong username or password"}
             )
     return render(request, "users/login.html")
+
+
+@login_required
+def logout_view(request):
+    """Logout a user"""
+    logout(request)
+    return redirect("login")
