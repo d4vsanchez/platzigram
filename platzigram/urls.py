@@ -8,7 +8,10 @@ from users import views as users_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("posts/", posts_views.list_posts, name="feed"),
+    # Posts
+    path("", posts_views.list_posts, name="feed"),
+    path("posts/new/", posts_views.create_post, name="create_post"),
+    # User
     path("users/login", users_views.login_view, name="login"),
     path("users/logout", users_views.logout_view, name="logout"),
     path("users/signup", users_views.signup_view, name="signup"),
