@@ -11,6 +11,11 @@ from django.contrib.auth import authenticate, login, logout
 from users.models import Profile
 
 
+def update_profile_view(request):
+    """Update a user's profile view."""
+    return render(request, "users/update_profile.html")
+
+
 def login_view(request):
     """Login view."""
     if request.method == "POST":
