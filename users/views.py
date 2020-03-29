@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from users.models import Profile
 
 # Forms
-from users.forms import ProfileForm
+from users.forms import ProfileForm, SignUpForm
 
 
 @login_required
@@ -60,30 +60,14 @@ def login_view(request):
 def signup_view(request):
     """Signup view."""
     if request.method == "POST":
-        username = request.POST["username"]
-        passwd = request.POST["passwd"]
-        passwd_confirmation = request.POST["passwd_confirmation"]
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    else:
+        form = SignUpForm()
 
-        if passwd != passwd_confirmation:
-            return render(
-                request,
-                "users/signup.html",
-                {"error": "Password confirmation does not match"},
-            )
-
-        try:
-            user = User.objects.create_user(username=username, password=passwd)
-        except:
-            return render(
-                request, "users/signup.html", {"error": "Username already taken"}
-            )
-        user.first_name = request.POST["first_name"]
-        user.last_name = request.POST["last_name"]
-        user.email = request.POST["email"]
-
-        profile = Profile.objects.create(user=user)
-        return redirect("login")
-    return render(request, "users/signup.html")
+    return render(request, "users/signup.html", {"form": form})
 
 
 @login_required
