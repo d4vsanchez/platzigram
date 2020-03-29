@@ -4,6 +4,7 @@
 from django.urls import reverse_lazy
 from django.db.utils import IntegrityError
 from django.contrib.auth.models import User
+from django.contrib.auth import views as auth_views
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -66,20 +67,10 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         return reverse_lazy("users:detail", kwargs={"username": username})
 
 
-def login_view(request):
+class LoginView(auth_views.LoginView):
     """Login view."""
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect("posts:feed")
-        else:
-            return render(
-                request, "users/login.html", {"error": "Wrong username or password"}
-            )
-    return render(request, "users/login.html")
+
+    template_name = "users/login.html"
 
 
 @login_required
