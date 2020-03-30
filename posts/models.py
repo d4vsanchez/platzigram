@@ -1,6 +1,6 @@
 """Posts models."""
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 # Django
 from django.db import models
 
@@ -11,7 +11,7 @@ from users.models import Profile
 class Post(models.Model):
     """Post model"""
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
 
     title = models.CharField(max_length=255)

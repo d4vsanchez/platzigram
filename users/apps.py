@@ -2,6 +2,9 @@
 
 from django.apps import AppConfig
 
+# Signals
+from users import signals
+
 
 class UsersConfig(AppConfig):
     """User app config."""

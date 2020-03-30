@@ -1,10 +1,9 @@
 """User views"""
 
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.shortcuts import redirect, render, reverse
 # Django
@@ -24,7 +23,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     template_name = "users/detail.html"
     slug_field = "username"
     slug_url_kwarg = "username"
-    queryset = User.objects.all()
+    queryset = get_user_model().objects.all()
     context_object_name = "user"
 
     def get_context_data(self, **kwargs):

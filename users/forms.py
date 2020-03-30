@@ -1,7 +1,7 @@
 # Django
 from django import forms
 # Models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from users.models import Profile
 
@@ -22,7 +22,7 @@ class SignUpForm(forms.Form):
     def clean_username(self):
         """Username must be unique."""
         username = self.cleaned_data["username"]
-        user_exist = User.objects.filter(username=username).exists()
+        user_exist = get_user_model().objects.filter(username=username).exists()
         if user_exist:
             raise forms.ValidationError("Username is already taken")
         return username
@@ -43,5 +43,5 @@ class SignUpForm(forms.Form):
         data = self.cleaned_data
         data.pop("password_confirmation")
 
-        user = User.objects.create_user(**data)
+        user = get_user_model().objects.create_user(**data)
         Profile.objects.create(user=user)
